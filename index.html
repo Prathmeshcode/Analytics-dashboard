@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Analytics Dashboard | KalaGoon Data Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="assets/dashboard.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-chart-line me-2"></i>Analytics Pro Dashboard
+            </a>
+            
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle"></i> Admin User
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-download me-2"></i>Export Data</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+                <a class="nav-link" href="https://github.com/prathmeshcode/analytics-dashboard" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 px-0">
+                <div class="sidebar bg-dark">
+                    <div class="sidebar-header p-3">
+                        <h6 class="text-white mb-0">
+                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard Menu
+                        </h6>
+                    </div>
+                    
+                    <div class="sidebar-nav">
+                        <a href="#overview" class="nav-item active">
+                            <i class="fas fa-home"></i> Overview
+                        </a>
+                        <a href="#sales" class="nav-item">
+                            <i class="fas fa-shopping-cart"></i> Sales Analytics
+                        </a>
+                        <a href="#customers" class="nav-item">
+                            <i class="fas fa-users"></i> Customer Insights
+                        </a>
+                        <a href="#performance" class="nav-item">
+                            <i class="fas fa-chart-bar"></i> Performance
+                        </a>
+                        <a href="#reports" class="nav-item">
+                            <i class="fas fa-file-alt"></i> Reports
+                        </a>
+                    </div>
+                    
+                    <!-- Company Info -->
+                    <div class="sidebar-footer p-3 mt-auto">
+                        <div class="text-center">
+                            <small class="text-muted">Powered by</small><br>
+                            <strong class="text-white">KalaGoon Solutions</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10">
+                <div class="main-content p-4">
+                    <!-- Header Section -->
+                    <div class="dashboard-header mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h2 class="fw-bold mb-1">Business Analytics Dashboard</h2>
+                                <p class="text-muted mb-0">
+                                    <i class="fas fa-calendar me-2"></i>Last Updated: <span id="lastUpdated"></span>
+                                    <span class="badge bg-success ms-2">
+                                        <i class="fas fa-circle pulse"></i> Live Data
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="refreshData()">
+                                        <i class="fas fa-sync-alt"></i> Refresh
+                                    </button>
+                                    <button class="btn btn-outline-success btn-sm" onclick="exportData()">
+                                        <i class="fas fa-download"></i> Export
+                                    </button>
+                                    <button class="btn btn-primary btn-sm" onclick="showSettings()">
+                                        <i class="fas fa-cog"></i> Settings
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Cards Row -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-3">
+                            <div class="kpi-card">
+                                <div class="kpi-icon bg-primary">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </div>
+                                <div class="kpi-content">
+                                    <h3 class="kpi-value" data-target="2847520">₹0</h3>
+                                    <p class="kpi-label">Total Revenue</p>
+                                    <div class="kpi-trend positive">
+                                        <i class="fas fa-arrow-up"></i> +15.3% from last month
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="kpi-card">
+                                <div class="kpi-icon bg-success">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="kpi-content">
+                                    <h3 class="kpi-value" data-target="12847">0</h3>
+                                    <p class="kpi-label">Active Users</p>
+                                    <div class="kpi-trend positive">
+                                        <i class="fas fa-arrow-up"></i> +8.7% from last month
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="kpi-card">
+                                <div class="kpi-icon bg-info">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </div>
+                                <div class="kpi-content">
+                                    <h3 class="kpi-value" data-target="3247">0</h3>
+                                    <p class="kpi-label">Total Orders</p>
+                                    <div class="kpi-trend positive">
+                                        <i class="fas fa-arrow-up"></i> +12.1% from last month
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="kpi-card">
+                                <div class="kpi-icon bg-warning">
+                                    <i class="fas fa-percent"></i>
+                                </div>
+                                <div class="kpi-content">
+                                    <h3 class="kpi-value" data-target="87">0%</h3>
+                                    <p class="kpi-label">Conversion Rate</p>
+                                    <div class="kpi-trend negative">
+                                        <i class="fas fa-arrow-down"></i> -2.3% from last month
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="row g-4 mb-4">
+                        <!-- Sales Chart -->
+                        <div class="col-lg-8">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-chart-line me-2 text-primary"></i>Sales Performance
+                                    </h5>
+                                    <div class="chart-controls">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button class="btn btn-outline-secondary active" data-period="7d">7D</button>
+                                            <button class="btn btn-outline-secondary" data-period="30d">30D</button>
+                                            <button class="btn btn-outline-secondary" data-period="90d">90D</button>
+                                            <button class="btn btn-outline-secondary" data-period="1y">1Y</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chart-body">
+                                    <canvas id="salesChart" width="800" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Revenue Pie Chart -->
+                        <div class="col-lg-4">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-chart-pie me-2 text-success"></i>Revenue Sources
+                                    </h5>
+                                </div>
+                                <div class="chart-body">
+                                    <canvas id="revenueChart" width="300" height="300"></canvas>
+                                </div>
+                                <div class="chart-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-color" style="background-color: #0d6efd;"></span>
+                                        <span>Web Sales (45%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color" style="background-color: #198754;"></span>
+                                        <span>Mobile App (35%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color" style="background-color: #ffc107;"></span>
+                                        <span>In-Store (20%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Tables Row -->
+                    <div class="row g-4 mb-4">
+                        <!-- Top Products -->
+                        <div class="col-lg-6">
+                            <div class="table-card">
+                                <div class="table-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-trophy me-2 text-warning"></i>Top Products
+                                    </h5>
+                                    <a href="#" class="text-decoration-none">View All</a>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Sales</th>
+                                                <th>Revenue</th>
+                                                <th>Trend</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="topProductsTable">
+                                            <!-- Data will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customer Insights -->
+                        <div class="col-lg-6">
+                            <div class="table-card">
+                                <div class="table-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-users me-2 text-info"></i>Customer Insights
+                                    </h5>
+                                    <a href="#" class="text-decoration-none">View All</a>
+                                </div>
+                                <div class="insight-metrics">
+                                    <div class="insight-item">
+                                        <div class="insight-icon">
+                                            <i class="fas fa-user-plus text-success"></i>
+                                        </div>
+                                        <div class="insight-content">
+                                            <h6>New Customers</h6>
+                                            <span class="insight-value" data-target="1247">0</span>
+                                            <small class="text-muted">This month</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="insight-item">
+                                        <div class="insight-icon">
+                                            <i class="fas fa-heart text-danger"></i>
+                                        </div>
+                                        <div class="insight-content">
+                                            <h6>Customer Retention</h6>
+                                            <span class="insight-value">87.3%</span>
+                                            <small class="text-success">+3.2% improvement</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="insight-item">
+                                        <div class="insight-icon">
+                                            <i class="fas fa-star text-warning"></i>
+                                        </div>
+                                        <div class="insight-content">
+                                            <h6>Average Rating</h6>
+                                            <span class="insight-value">4.8/5.0</span>
+                                            <small class="text-muted">Based on 2,847 reviews</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business Impact Section -->
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="impact-card">
+                                <div class="impact-header">
+                                    <h4 class="fw-bold mb-3">
+                                        <i class="fas fa-rocket me-2 text-primary"></i>
+                                        Business Impact: Real-Time Analytics Success Story
+                                    </h4>
+                                </div>
+                                
+                                <div class="row align-items-center">
+                                    <div class="col-lg-8">
+                                        <div class="impact-content">
+                                            <blockquote class="blockquote">
+                                                <p class="fs-5">"KalaGoon's analytics dashboard transformed how we make business decisions. We now have real-time insights into our performance, identify trends instantly, and can react to market changes within hours instead of weeks. Our revenue grew by 40% in the first quarter after implementation."</p>
+                                                <footer class="blockquote-footer mt-3">
+                                                    <strong>Rajesh Gupta</strong> <cite title="Source Title">CEO, TechFlow Solutions</cite>
+                                                </footer>
+                                            </blockquote>
+                                            
+                                            <div class="row mt-4">
+                                                <div class="col-md-4">
+                                                    <div class="impact-stat">
+                                                        <h3 class="text-success">40%</h3>
+                                                        <p class="mb-0">Revenue Increase</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="impact-stat">
+                                                        <h3 class="text-primary">85%</h3>
+                                                        <p class="mb-0">Faster Decisions</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="impact-stat">
+                                                        <h3 class="text-info">24/7</h3>
+                                                        <p class="mb-0">Real-time Monitoring</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-4 text-center">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" 
+                                             alt="CEO" class="rounded-circle mb-3" width="150" height="150">
+                                        <div class="contact-cta">
+                                            <a href="mailto:prathmeshdhote@gmail.com" class="btn btn-primary">
+                                                <i class="fas fa-envelope me-2"></i>Get Your Dashboard
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3 mt-5">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">
+                        <strong>Built by KalaGoon Software Solutions Pvt. Ltd.</strong><br>
+                        <small>Advanced analytics and business intelligence solutions</small>
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="contact-info">
+                        <a href="mailto:prathmeshdhote@gmail.com" class="text-white text-decoration-none me-3">
+                            <i class="fas fa-envelope"></i> prathmeshdhote@gmail.com
+                        </a>
+                        <a href="tel:+919529169879" class="text-white text-decoration-none">
+                            <i class="fas fa-phone"></i> +91 95291 69879
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/dashboard.js"></script>
+</body>
+</html>
